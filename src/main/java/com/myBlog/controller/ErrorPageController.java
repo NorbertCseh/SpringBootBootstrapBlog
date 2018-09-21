@@ -32,7 +32,7 @@ public class ErrorPageController implements ErrorController {
         model.addAttribute("error", error.get("error"));
         model.addAttribute("message", error.get("message"));
         model.addAttribute("path", error.get("path"));
-        model.addAttribute("status", error.get("status"));
+        model.addAttribute("status", "https://http.cat/" + error.get("status"));
 
         return "detailedError";
     }

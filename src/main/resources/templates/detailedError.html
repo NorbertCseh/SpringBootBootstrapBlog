@@ -15,25 +15,18 @@
 </head>
 
 <body>
-    <!-- NAVBAR -->
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">CompanyName</a>
-        </nav>
-        <!-- NAVBAR END -->
+    <div class="container-fluid text-center">
         <article>
             <header>
                 <h1 th:text="${error}">Ez itt a gond</h1>
             </header>
             <section>
                 <p th:text="${message}">Ez az üzenet</p>
-                <p th:text="${path}">Ez az üzenet</p>
-                <p th:text="${status}">Ez az üzenet</p>
-                <p th:text="${timestamp}">Ez az üzenet</p>
+                <p>A keresett oldal, <span th:text="${path}">Ez az üzenet</span> nem található </p>
+                <p th:text="${#dates.format( timestamp, 'yyyy.MM.dd HH:mm')}">Ez az üzenet</p>
+                <img th:src="${status}" src="" alt="">
             </section>
         </article>
-        <hr />
-        <footer th:text="#{footerText}">Készitette: Valaki</footer>
     </div>
 
     <!-- Optional JavaScript -->
