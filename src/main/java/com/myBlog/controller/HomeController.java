@@ -1,5 +1,10 @@
 package com.myBlog.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+import com.myBlog.domain.Story;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +15,7 @@ public class HomeController {
 	public String blog(Model model) {
 		model.addAttribute("pageTitle", "NrbrtCsh's Blog");
 		model.addAttribute("paginationTitle", "My blog with Botstrap and Spring Boot");
+		model.addAttribute("stories", getStories());
 		return "blog";
 	}
 
