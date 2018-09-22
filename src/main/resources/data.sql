@@ -1,0 +1,1 @@
+insert into blogger(age, name) values (23,'Gyula');

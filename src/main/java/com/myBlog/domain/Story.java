@@ -2,19 +2,45 @@ package com.myBlog.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Story {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private long id;
     private String title;
     private String content;
     private Date posted;
-    private String author;
+    @ManyToOne
+    private Blogger blogger;
 
-    public Story() {
+    private Story() {
 
     }
 
     @Override
     public String toString() {
         return "Stroy: {title" + title + "}";
+    }
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -27,15 +53,15 @@ public class Story {
     /**
      * @return the author
      */
-    public String getAuthor() {
-        return author;
+    public Blogger getBlogger() {
+        return blogger;
     }
 
     /**
      * @param author the author to set
      */
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setBlogger(Blogger blogger) {
+        this.blogger = blogger;
     }
 
     /**
