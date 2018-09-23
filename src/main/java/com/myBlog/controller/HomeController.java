@@ -1,12 +1,8 @@
 package com.myBlog.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import com.myBlog.domain.Story;
-import com.myBlog.repository.StoryRepository;
+import com.myBlog.service.StoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+	private StoryService storyService;
+
+	/**
+	 * @param storyService the storyService to set
+	 */
 	@Autowired
-	StoryRepository storyRepo;
+	public void setStoryService(StoryService storyService) {
+		this.storyService = storyService;
+	}
 
 	@RequestMapping("/")
 	public String blog(Model model) {
 		model.addAttribute("pageTitle", "NrbrtCsh's Blog");
-		model.addAttribute("paginationTitle", "My blog with Botstrap and Spring Boot");
-		model.addAttribute("stories", getStories());
+
+		model.addAttribute("stories", storyService.getStories());
 		return "blog";
 	}
 
@@ -41,22 +44,21 @@ public class HomeController {
 	public String exceptionHandler(HttpServletRequest rA, Exception ex, Model model) {
 		return "exceptionHandler";
 	}
-
-	private List<Story> getStories() {
-		List<Story> stories = storyRepo.findAll();
-		/*
-		 * Story story1 = new Story(); story1.setTitle("Első Story");
-		 * story1.setPosted(new Date()); story1.setBlogger("Norbi");
-		 * story1.setContent("Első Storym");
-		 * 
-		 * Story story2 = new Story(); story2.setTitle("Második Story");
-		 * story2.setPosted(new Date()); story2.setBlogger("Gyula");
-		 * story2.setContent("Második Storym");
-		 * 
-		 * stories.add(story1); stories.add(story2);
-		 */
-		return stories;
-
-	}
-
+	/*
+	 * private List<Story> getStories() { List<Story> stories = storyRepo.findAll();
+	 * 
+	 * Story story1 = new Story(); story1.setTitle("Első Story");
+	 * story1.setPosted(new Date()); story1.setBlogger("Norbi");
+	 * story1.setContent("Első Storym");
+	 * 
+	 * Story story2 = new Story(); story2.setTitle("Második Story");
+	 * story2.setPosted(new Date()); story2.setBlogger("Gyula");
+	 * story2.setContent("Második Storym");
+	 * 
+	 * stories.add(story1); stories.add(story2);
+	 * 
+	 * return stories;
+	 * 
+	 * }
+	 */
 }

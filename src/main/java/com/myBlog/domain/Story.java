@@ -1,5 +1,6 @@
 package com.myBlog.domain;
 
+import java.lang.reflect.Constructor;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -22,6 +23,13 @@ public class Story {
 
     private Story() {
 
+    }
+
+    public Story(String title, String content, Date posted, Blogger blogger) {
+        this.title = title;
+        this.content = content;
+        this.posted = posted;
+        this.blogger = blogger;
     }
 
     @Override
