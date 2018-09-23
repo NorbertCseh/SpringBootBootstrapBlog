@@ -16,27 +16,26 @@
 
 <body>
   <!-- NAVBAR -->
-  <div class="container-fluid">
+  <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">CompanyName</a>
-      <a class="navbar-text navbar-right" th:text="#{yourip}">IP címed: <a href="" class="navbar-link">127.0.0.1</a></a>
-
+      <a class="navbar-brand" href="#">Norbert's Blog</a>
     </nav>
     <!-- NAVBAR END -->
 
-    
+
 
     <!--GRID SYSTEM -->
-    <div class="card mb-4" th:each="story:${stories}">
+    <div class="card my-1" th:each="story:${stories}">
       <div class="card-header">
-        <h1 th:text="${story.title}">Title </h1>
-        <p th:text="${#dates.format( story.posted, 'yyyy.MM.dd HH:mm')}">Posted on 2018.09.21</p>
+        <h3 th:text="${story.title}">Title </h3>
       </div>
       <div class="card-body">
         <blockquote class="blockquote mb-0">
           <p th:text="${story.content}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
             ante.</p>
-          <footer class="blockquote-footer" th:text="${story.blogger.name}">Someone famous in
+          <footer class="blockquote-footer">
+            <p class="mb-0" th:text="${story.blogger.name}">SomeoneFamous</p>
+            <p class="mb-0" th:text="${#dates.format( story.posted, 'yyyy.MM.dd HH:mm')}">Posted on 2018.09.21</p>
           </footer>
         </blockquote>
       </div>

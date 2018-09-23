@@ -8,13 +8,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+//Entity -> egy tábla az adatbázisban, Azért kell, hogy a spring felismerje
 @Entity
 public class Blogger {
+    // Automatikusan generált érték az adatbázisban
+    // Meg kell adni azt is hogy ID
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
     private String name;
     private int age;
+    // Egy a sokhoz kapcsolat, egy bejegyzésnek csak egy szerzője lehet, de egy
+    // bloggernek több posztja is lehet
     @OneToMany(mappedBy = "blogger")
     private List<Story> stories;
 

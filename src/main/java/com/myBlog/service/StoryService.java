@@ -13,6 +13,8 @@ import com.myBlog.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+//Service-ünk, ami íránytja a repokat, ezt pedig a controllerek,
+//a getStories() függvényt ott hívjuk meg pl.
 @Service
 public class StoryService {
     private StoryRepository storyRepo;
@@ -34,11 +36,17 @@ public class StoryService {
         this.storyRepo = storyRepo;
     }
 
+    // Kiszedi az összes Story-t az adatbázisból.
     public List<Story> getStories() {
-        init();
         return storyRepo.findAll();
     }
 
+    // Uj post létrehozásához ezt kell modosítani majd
+    // Ez az annotáció egyszer lefut amikor elindul az alkalmazás Singleton Scope
+    // Feltölti egy teszt bejegyzéssel az adatbázisunkat
+    // Létrehoz egy Bloggert és egy story-t, Storyban meghívja a létrejött
+    // bloggerünket.
+    // .save();-el mentheted el az adatbázisban
     @PostConstruct
     public void init() {
         Blogger blogger = new Blogger("Belső Gyula", 25);

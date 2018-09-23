@@ -1,6 +1,5 @@
 package com.myBlog.domain;
 
-import java.lang.reflect.Constructor;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -9,15 +8,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+//Adatbázisban ezt a táblát stories néven fogja hívni, amire átírod
+//Entity egy tábla az adatbázisban
+@Entity(name = "stories")
 public class Story {
 
+    // Automatikusan generált érték legyen a value
+    // Meg kell adni hogy ID is
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
     private String title;
     private String content;
     private Date posted;
+    // Sok az egyhez kapcsolat, mert egy bloggernek több posztja is lehet
     @ManyToOne
     private Blogger blogger;
 

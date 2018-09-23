@@ -12,17 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.ServletWebRequest;
 
+//WebController
+//Error page-t adja vissza a híba adataival
+//implements ErrorController
 @Controller
 public class ErrorPageController implements ErrorController {
 
+    // Ha /error oldal jon be, akkor ez hívodik meg
     private static final String ERR_PATH = "/error";
     private ErrorAttributes errorAttributes;
 
+    // Dependency Injection, setter felett
     @Autowired
     public void setErrorAttributes(ErrorAttributes errorAttributes) {
         this.errorAttributes = errorAttributes;
     }
 
+    // private static final String ERR_PATH = "/error";
     @RequestMapping(ERR_PATH)
     public String error(Model model, HttpServletRequest request) {
         ServletWebRequest rA = new ServletWebRequest(request);
@@ -32,8 +38,10 @@ public class ErrorPageController implements ErrorController {
         model.addAttribute("error", error.get("error"));
         model.addAttribute("message", error.get("message"));
         model.addAttribute("path", error.get("path"));
+        // CATS!!!!!!!!!!
         model.addAttribute("status", "https://http.cat/" + error.get("status"));
 
+        // detailedError.html-t adja vissza
         return "detailedError";
     }
 
