@@ -2,44 +2,55 @@ package com.myBlog.domain;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.ManyToOne;
 
-//Adatbázisban ezt a táblát stories néven fogja hívni, amire átírod
-//Entity egy tábla az adatbázisban
-@Entity(name = "stories")
+////Adatbázisban ezt a táblát stories néven fogja hívni, amire átírod                 Annotáciok a JPA-hoz kellettek
+////Entity egy tábla az adatbázisban
+//@Entity // (name = "stories")
 public class Story {
 
+    private static final String lenght = null;
     // Automatikusan generált érték legyen a value
     // Meg kell adni hogy ID is
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
     private long id;
+//    @Column // (name = "cim")
     private String title;
+    // @Column(length = 1000) 1000 karakter lehet beleirni az alap 255 helyett,
+    // ha nem állitod át, levágja a végét
+//    @Column(columnDefinition = "TEXT") // varchar helyett textfield lesz az adatbázisban
     private String content;
     private Date posted;
     // Sok az egyhez kapcsolat, mert egy bloggernek több posztja is lehet
-    @ManyToOne
+//    @ManyToOne
     private Blogger blogger;
 
-    private Story() {
+    public Story() {
 
     }
 
-    public Story(String title, String content, Date posted, Blogger blogger) {
+    public Story(String title, String content, Date posted, Blogger blogger ) {
         this.title = title;
         this.content = content;
         this.posted = posted;
+        
         this.blogger = blogger;
     }
-
-    @Override
-    public String toString() {
-        return "Stroy: {title" + title + "}";
+    public Story(Long id, String title, String content, Date posted,Long bloggerId) {
+    	this.id = id;
+        this.title = title;
+        this.content = content;
+        this.posted = posted;
+        this.blogger = new Blogger(bloggerId, "Krisz",21);
     }
+
+   
 
     /**
      * @return the id

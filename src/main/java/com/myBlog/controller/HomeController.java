@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//Annotáció ami egy template-et ad vissza a templates mappábol
+//Annotáció ami egy template-et ad vissza a templates mappából
 //RestController lehetne helyette, de az a return értékét adja vissza
 @Controller
 public class HomeController {
@@ -23,7 +23,7 @@ public class HomeController {
 	 * @param storyService the storyService to set
 	 */
 
-	// Dependency Injecton miatt kell a setterbe tenni, mehetne a konstruktorba is,
+	// Dependency Injecton, setterbe jobb tenni, mehetne a konstruktorba is,
 	// de itt egyszerübb tesztelni
 	@Autowired
 	public void setStoryService(StoryService storyService) {
@@ -38,22 +38,42 @@ public class HomeController {
 		model.addAttribute("stories", storyService.getStories());
 		return "blog";
 	}
+//
+//	@RequestMapping("/about")
+//	public String about(Model model) {
+//		model.addAttribute("pageTitle", "NrbrtCsh's Blog");
+//		model.addAttribute("stories", storyService.getStories());
+//		return "about";
+//	}
+//
+//	@RequestMapping("/story")
+//	public String story(Model model) {
+//		model.addAttribute("pageTitle", "NrbrtCsh's Blog");
+//		model.addAttribute("story", storyService.getStory());
+//		return "story";
+//	}
 
-	// User keresése, de még nincs egy se, viszon cuki cicás képet ad vissza
-	// PathVariable böngésző sávból huzhatunk be adatokat, hozzá is kell rendelni
-	// egy változohoz egyből.
-	@RequestMapping("/user/{id}")
-	public String searchForUser(@PathVariable(value = "id") String id) throws Exception {
-		if (id == null) {
-			// ha nincs ilyen nevű felhasználó, kivételt dob, jelenleg még user.html
-			// template sincs kész
-			// ezért template error-t dob
-			throw new Exception("Nincs ilyen felhasználó!");
-		}
-		return "user";
+	@RequestMapping("/title/{title}")
+	public String searchForUser(@PathVariable(value = "title") String title, Model model) throws Exception {
+		if (title == null)
+			throw new Exception("Nincs ilyen címmel sztorink!");
+		model.addAttribute("story", storyService.getSpecificStory(title));
+		return "story";
 	}
 
-	// Kivételek kezelése, lementjük egy, najó, ezt még át kell nézni.
+	// User keresése, de még nincs egy se, viszon cuki cicás képet ad vissza
+	// PathVariable: böngésző sávból huzhatunk be adatokat, hozzá is kell rendelni
+	// egy változohoz egyből.
+	/*
+	 * @RequestMapping("/user/{id}") public String searchForUser(@PathVariable(value
+	 * = "id") String id) throws Exception { if (id == null) { // ha nincs ilyen
+	 * nevű felhasználó, kivételt dob, jelenleg még user.html // template sincs kész
+	 * // ezért template error-t dob throw new
+	 * Exception("Nincs ilyen felhasználó!"); } return "user"; }
+	 */
+
+	// Kivételek kezelése, lementjük egy, najó, ezt még át kell néznem, sok az új
+	// dolog itt.
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(HttpServletRequest rA, Exception ex, Model model) {
 		return "exceptionHandler";

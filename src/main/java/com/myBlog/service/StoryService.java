@@ -41,18 +41,30 @@ public class StoryService {
         return storyRepo.findAll();
     }
 
+//    public Story getStory() {
+//        return storyRepo.findFirstByOrderByPostedDesc();
+//    }
+//
+    public Story getSpecificStory(String title) {
+        return storyRepo.findByTitle(title);
+    }
+//
+//	public List<Story> getStoriesByBloggerName(String name) {
+//		return storyRepo.findAllByBloggerNameIgnoreCaseOrderByPostedDesc(name);
+//	}
+
     // Uj post létrehozásához ezt kell modosítani majd
     // Ez az annotáció egyszer lefut amikor elindul az alkalmazás Singleton Scope
     // Feltölti egy teszt bejegyzéssel az adatbázisunkat
     // Létrehoz egy Bloggert és egy story-t, Storyban meghívja a létrejött
     // bloggerünket.
     // .save();-el mentheted el az adatbázisban
-    @PostConstruct
-    public void init() {
-        Blogger blogger = new Blogger("Belső Gyula", 25);
-        bloggerRepo.save(blogger);
+    // @PostConstruct
+    // public void init() {
+    // Blogger blogger = new Blogger("Belső Gyula", 25);
+    // bloggerRepo.save(blogger);
 
-        Story story = new Story("Belső cím", "Belső Tartalom", new Date(), blogger);
-        storyRepo.save(story);
-    }
+    // Story story = new Story("Belső cím", "Belső Tartalom", new Date(), blogger);
+    // storyRepo.save(story);
+    // }
 }
